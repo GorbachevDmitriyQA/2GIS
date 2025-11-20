@@ -8,10 +8,13 @@ class ApiFavoritesManager:
         self.validator = ApiFavoriteValidator()
 
     @allure.step("Создание избранного места пользователя")
-    def create_favorite(self, data):
+    def create_favorite(self, data, token = None):
+        token_source = self.token
+        if token is not None:
+            token_source = token
         response = requests.post(self.url, data,
                                  headers={'Content-Type': 'application/x-www-form-urlencoded',
-                                          'Cookie': f"token={self.token}"})
+                                          'Cookie': f"token={token_source}"})
         return response
     @allure.step("Отправка запроса на создание избранного места без токена")
     def send_create_favorite_without_token(self, data):
