@@ -1,9 +1,19 @@
 import allure
 import requests
-from api_validations.api_favorite_validator import ApiFavoriteValidator
+from api_managers.validations.favorite.api_favorite_validator import ApiFavoriteValidator
+from config import TEST_URL
 class ApiFavoritesManager:
+    """
+    API менеджер для работы с favorite (создание избранного места)
+
+    Предоставляет методы:
+    - создание избранного места пользователя,-
+    - отправка запроса на создание без токена (для тестирования ошибок авторизации).
+
+    Использует токен авторизации для доступа к эндпоинту /favorites.
+    """
     def __init__(self, token):
-        self.url = "https://regions-test.2gis.com/v1/favorites"
+        self.url = TEST_URL + "/favorites"
         self.token = token
         self.validator = ApiFavoriteValidator()
 

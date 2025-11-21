@@ -3,8 +3,7 @@ import os
 from pathlib import Path
 import allure
 import pytest
-from api_managers.api_auth_manager import ApiAuthManager
-
+from api_managers.auth.api_auth_manager import ApiAuthManager
 
 @pytest.fixture(scope="function")
 @allure.step("Получение токена авторизации")
