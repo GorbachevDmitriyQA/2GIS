@@ -9,7 +9,7 @@ class ApiFavoriteValidator:
     """
     @allure.step("Проверка ответа при создании избранного места")
     def check_success_favorite_create_response(self, response, expected_data):
-        assert response.status_code == 200, f"Статус код ответа {AssertionHelper.default_error_message}"
+        AssertionHelper.check_status_code(response.status_code, 200)
         json_data = response.json()
         created_date = json_data["created_at"]
         assert isinstance(json_data["id"], int),\
@@ -34,7 +34,7 @@ class ApiFavoriteValidator:
 
     @allure.step("Проверка сообщения об отсутствии токена")
     def check_unauthorized_error_response(self, response):
-        assert response.status_code == 401, "Статус код ответа не совпадает с ожидаемым"
+        AssertionHelper.check_status_code(response.status_code, 401)
         assert response.json()["error"]["message"] == "Параметр 'token' является обязательным", \
             "Валидационное сообщение не совпадает с ожидаемым"
 
@@ -46,7 +46,7 @@ class ApiFavoriteValidator:
 
     @allure.step("Проверка валидационного сообщения на недопустимые значения для поля latitude")
     def check_latitude_validation(self, response, expected_data):
-        assert response.status_code == 400, f"Статус код ответа {AssertionHelper.default_error_message}"
+        AssertionHelper.check_status_code(response.status_code, 400)
         expected_message = ""
         if not isinstance(expected_data["lat"], int):
             expected_message = "Параметр 'lat' должен быть числом"
@@ -58,7 +58,7 @@ class ApiFavoriteValidator:
 
     @allure.step("Проверка валидационного сообщения на недопустимые значения для поля longitude")
     def check_longitude_validation(self, response, expected_data):
-        assert response.status_code == 400, f"Статус код ответа {AssertionHelper.default_error_message}"
+        AssertionHelper.check_status_code(response.status_code, 400)
         expected_message = ""
         if not isinstance(expected_data["lon"], int):
             expected_message = "Параметр 'lon' должен быть числом"
